@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EssayPro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto+Mono:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div id="heading">
+        <h1>EssayPro</h1>
+    </div>
+    <div id="container">
+        <div id="intro">
+            <p id="intro-text">Feeling like this?</p>
+            <img id="spongebob" src="https://media.tenor.com/LiDD5Bl5AXEAAAAd/spongebob-the.gif" width='700px' height='auto' alt="spongebob"></img>
+        </div>
+        <div id="sub-section">
+            <p id="subtext">Then you've come to the right place!</p>
+        </div>
+        <div id="form_section">
+            <p id="subheading">Enter your essay below:</p>
+            <form id="essayForm" onsubmit="gradeEssay(event)">
+                <textarea id="essay_text" name="essay_text" rows="10" cols="50"></textarea><br>
+                <input id="submit_button" type="submit" value="Grade Essay">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = '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';
+
+        async function gradeEssay(event) {
+            event.preventDefault();
+
+            const essayText = document.getElementById('essay_text').value;
+
+            // Construct the prompt
+            const prompt = `
+                Please analyze and grade the following essay on the topic of this essay:
+
+                Consider the following criteria and provide a percentage and letter grade (e.g., A, B, C, D, F) along with detailed feedback:
+                
+                1. **Content and Understanding (40%):** Assess the depth of understanding of the topic, the accuracy of information presented, and the overall quality of the arguments and supporting evidence.
+
+                2. **Organization and Structure (20%):** Evaluate the essay's overall organization, clarity of thesis statement, logical flow of ideas, and transitions between paragraphs.
+
+                3. **Coherence and Clarity (20%):** Examine the coherence and clarity of the writing, including sentence structure, clarity of expression, and the use of appropriate vocabulary.
+
+                4. **Grammar and Mechanics (10%):** Check for grammatical errors, spelling mistakes, punctuation issues, and adherence to standard conventions of written English.
+
+                5. **Citations and References (10%):** Assess the use of citations and references, if applicable, and the adherence to citation style guidelines (e.g., APA, MLA).
+
+                Please provide specific feedback on strengths and weaknesses in each of these areas and justify the assigned grade. Your evaluation should be comprehensive and constructive, offering suggestions for improvement where necessary.
+
+                Essay:
+                ${essayText}
+            `;
+
+            try {
+                const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`,
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        max_tokens: 3000, 
+                    }),
+                });
+
+                const data = await response.json();
+                const gradedEssay = data.choices[0].text;
+                console.log(gradedEssay);
+
+                // You can display the graded essay or process it further as needed
+            } catch (error) {
+                console.error(`An error occurred: ${error}`);
+            }
+        }
+    </script>
+</body>
+</html>
