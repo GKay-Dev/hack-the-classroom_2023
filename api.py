@@ -1,6 +1,6 @@
 import openai
 
-api_key = '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'
+api_key = ' enter key here '
 
 
 def grade_essay(essay_text):
