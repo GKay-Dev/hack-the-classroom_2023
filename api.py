@@ -5,23 +5,22 @@ api_key = ' enter key here '
 
 def grade_essay(essay_text):
     prompt = """
-    Please analyze and grade the following essay on the topic of this essay:
+                Please analyze and grade the following essay
 
-    Consider the following criteria and provide a percentage and letter grade (e.g., A, B, C, D, F) along with detailed feedback:
+                Consider the following criteria and provide a percentage and letter grade (e.g., A, B, C, D, F) along with detailed feedback:
+                
+                1. **Content and Understanding (40%):** Assess the depth of understanding of the topic, the accuracy of information presented, and the overall quality of the arguments and supporting evidence.
 
-    1. **Content and Understanding (40%):** Assess the depth of understanding of the topic, the accuracy of information presented, and the overall quality of the arguments and supporting evidence.
+                2. **Organization and Structure (20%):** Evaluate the essay's overall organization, clarity of thesis statement, logical flow of ideas, and transitions between paragraphs.
 
-    2. **Organization and Structure (20%):** Evaluate the essay's overall organization, clarity of thesis statement, logical flow of ideas, and transitions between paragraphs.
+                3. **Coherence and Clarity (20%):** Examine the coherence and clarity of the writing, including sentence structure, clarity of expression, and the use of appropriate vocabulary.
 
-    3. **Coherence and Clarity (20%):** Examine the coherence and clarity of the writing, including sentence structure, clarity of expression, and the use of appropriate vocabulary.
+                4. **Grammar and Mechanics (20%):** Check for grammatical errors, spelling mistakes, punctuation issues, and adherence to standard conventions of written English.
 
-    4. **Grammar and Mechanics (10%):** Check for grammatical errors, spelling mistakes, punctuation issues, and adherence to standard conventions of written English.
 
-    5. **Citations and References (10%):** Assess the use of citations and references, if applicable, and the adherence to citation style guidelines (e.g., APA, MLA).
+                Please provide specific feedback on strengths and weaknesses in each of these areas and justify the assigned grade. Your evaluation should be comprehensive and constructive, offering suggestions for improvement where necessary.
 
-    Please provide specific feedback on strengths and weaknesses in each of these areas and justify the assigned grade. Your evaluation should be comprehensive and constructive, offering suggestions for improvement where necessary.
-
-    Essay:
+                Essay:
     {}
     """.format(essay_text)
 
