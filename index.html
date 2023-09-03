@@ -27,11 +27,17 @@
                 <textarea id="essay_text" name="essay_text" rows="10" cols="50"></textarea><br>
                 <input id="submit_button" type="submit" value="Grade Essay">
             </form>
+ 
+        </div>
+        <div id="sub-section">
+            <p id="graded_essay">your grade will appear here</p>
         </div>
     </div>
+    </div>
+
 
     <script>
-        const apiKey = ' enter key here ';
+        const apiKey = 'enter api key here';
 
         async function gradeEssay(event) {
             event.preventDefault();
@@ -40,7 +46,7 @@
 
             // Construct the prompt
             const prompt = `
-                Please analyze and grade the following essay on the topic of this essay:
+                Please analyze and grade the following essay
 
                 Consider the following criteria and provide a percentage and letter grade (e.g., A, B, C, D, F) along with detailed feedback:
                 
@@ -50,14 +56,17 @@
 
                 3. **Coherence and Clarity (20%):** Examine the coherence and clarity of the writing, including sentence structure, clarity of expression, and the use of appropriate vocabulary.
 
-                4. **Grammar and Mechanics (10%):** Check for grammatical errors, spelling mistakes, punctuation issues, and adherence to standard conventions of written English.
+                4. **Grammar and Mechanics (20%):** Check for grammatical errors, spelling mistakes, punctuation issues, and adherence to standard conventions of written English.
 
-                5. **Citations and References (10%):** Assess the use of citations and references, if applicable, and the adherence to citation style guidelines (e.g., APA, MLA).
+                Start you response by saying Grade: (put what grade you feel the text is here) 
+                Then In a first person tone - Please provide specific feedback on strengths and weaknesses in each of these areas and justify the assigned grade. Your evaluation should be comprehensive and constructive, offering suggestions for improvement where necessary.
+                
 
-                Please provide specific feedback on strengths and weaknesses in each of these areas and justify the assigned grade. Your evaluation should be comprehensive and constructive, offering suggestions for improvement where necessary.
-
+                dont summarize the essay in any line unless needed for context
                 Essay:
                 ${essayText}
+
+
             `;
 
             try {
@@ -76,6 +85,9 @@
                 const data = await response.json();
                 const gradedEssay = data.choices[0].text;
                 console.log(gradedEssay);
+
+                const gradedEssayElement = document.getElementById('graded_essay');
+                gradedEssayElement.textContent = gradedEssay;
 
                 // You can display the graded essay or process it further as needed
             } catch (error) {
