@@ -40,11 +40,17 @@ body {
     font-style: italic;
 }
 
+#graded_essay{
+    text-align: center;
+    font-size: 150%;
+    font-style: italic;
+    background-color: #8ACECE;
+}
+
 #subheading{
     text-align: center;
     font-size: 110%;
 }
-
 
 
 /* Style the form */
